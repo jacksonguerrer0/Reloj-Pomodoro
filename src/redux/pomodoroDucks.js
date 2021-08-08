@@ -1,17 +1,20 @@
 import types from "./types/types";
 
 // constantes
-
-
-
+const intialState = {
+    time: 1500,
+    break: 300,
+    session: 1500,
+}
 
 
 // reducer
-const pomodoroReducer = (state = {}, action) => {
+const pomodoroReducer = (state = intialState, action) => {
     switch (action.type) {
+        case types.time:
+            return state
         case types.reset:
-            return {}
-    
+            return state
         default:
             return state;
     }
