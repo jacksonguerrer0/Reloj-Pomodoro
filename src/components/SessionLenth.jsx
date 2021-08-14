@@ -1,9 +1,12 @@
 import moment from 'moment';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { CardConfig, ContentIButton } from '../container/app-pomodoro-styled/AppPomodoroStyled'
+import { time } from '../redux/pomodoroDucks';
 
 const SessionLenth = () => {
     const [sessionLength, setSessionLength] = useState(60 * 25);
+    const dispatch = useDispatch()
 
     const decrementSessionLengthByMinute = () => {
         const newSessionLenght = sessionLength - 60;
@@ -15,6 +18,9 @@ const SessionLenth = () => {
     } 
     const sessionLengthMinutes = moment.duration(sessionLength, 'S').minutes()
 
+    useEffect(() => {
+        dispatch(time(sessionLength))
+    }, [dispatch, sessionLength])
     return (
     <CardConfig>
         <h3>Session Length</h3>
