@@ -3,7 +3,7 @@ import types from "./types/types";
 // constantes
 const intialState = {
     time: 1500,
-    breakLength: 300,
+    breakLengthTime: 300,
     session: 1500,
 }
 
@@ -15,13 +15,12 @@ const pomodoroReducer = (state = intialState, action) => {
             return {
                 ...state, 
                 time: action.payload,
-                session: action.payload
-                
+                session: action.payload 
             }
         case types.break:
             return {
                 ...state,
-                breakLength: action.payload 
+                breakLengthTime: action.payload 
             }
         case types.timeLength: 
             return {
@@ -44,7 +43,7 @@ export const reset = () => ({
 })
 
 
-export const time = (time) => ({
+export const timeSession = (time) => ({
     type: types.time,
     payload: time
 })

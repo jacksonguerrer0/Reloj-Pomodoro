@@ -1,24 +1,34 @@
 import React, { useEffect, useState } from 'react'
 import { CardConfig, ContentIButton } from '../container/app-pomodoro-styled/AppPomodoroStyled'
 import moment from 'moment';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { timeBreakLength } from '../redux/pomodoroDucks';
+
 const BreakInterval = () => {
-    const [breakLength, setBreakLength] = useState(300);
+
+    const [breakLength, setBreakLength] = useState();
     const dispatch = useDispatch()
+
+    const {breakLengthTime} = useSelector(state => state.pomodoro)
     const decrementBreakLengthByMinute = () => {
         const newBreakLenght = breakLength - 60;
-        newBreakLenght < 0 ? setBreakLength(0) : setBreakLength(newBreakLenght)
+        if(newBreakLenght < 0){
+            setBreakLength(0) 
+        }else{ 
+            setBreakLength(newBreakLenght)
+            dispatch(timeBreakLength(newBreakLenght) )
+        }
     }
     const incrementBreakLengthByMinute = () => {
         const newBreakLenght = breakLength + 60;
         setBreakLength(newBreakLenght)
+        dispatch(timeBreakLength(newBreakLenght) )
     } 
     const breakLengthMinutes = moment.duration(breakLength, 'S').minutes()
 
     useEffect(() => {
-        dispatch(timeBreakLength(breakLength))
-    }, [dispatch, breakLength])
+        setBreakLength(breakLengthTime)
+    }, [breakLengthTime])
     return (
     <CardConfig>
         <h3>Break Length</h3>
