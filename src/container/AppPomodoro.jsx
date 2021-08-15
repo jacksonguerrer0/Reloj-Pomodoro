@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import BreakInterval from '../components/BreakInterval';
 import SessionLenth from '../components/SessionLenth';
-import { timeBreakLength, timeLengthOne, timeSession } from '../redux/pomodoroDucks';
+import { timeBreakLength, timeSession } from '../redux/pomodoroDucks';
 import { ContainerApp, ContainerConfig, ContentTime } from './app-pomodoro-styled/AppPomodoroStyled'
 
 momentDurationFormatSetup(moment)

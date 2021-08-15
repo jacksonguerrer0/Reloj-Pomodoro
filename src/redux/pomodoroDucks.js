@@ -8,6 +8,7 @@ const intialState = {
 }
 
 
+
 // reducer
 const pomodoroReducer = (state = intialState, action) => {
     switch (action.type) {

@@ -2,7 +2,7 @@ import moment from 'moment';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { CardConfig, ContentIButton } from '../container/app-pomodoro-styled/AppPomodoroStyled'
-import { time, timeSession } from '../redux/pomodoroDucks';
+import {  timeSession } from '../redux/pomodoroDucks';
 
 const SessionLenth = () => {
     const {time} = useSelector(state => state.pomodoro)
