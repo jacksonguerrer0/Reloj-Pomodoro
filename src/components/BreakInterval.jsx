@@ -4,26 +4,36 @@ import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import { timeBreakLength } from '../redux/pomodoroDucks';
 
-const BreakInterval = () => {
+const BreakInterval = ({intervalId}) => {
 
     const [breakLength, setBreakLength] = useState();
     const dispatch = useDispatch()
 
     const {breakLengthTime} = useSelector(state => state.pomodoro)
+
     const decrementBreakLengthByMinute = () => {
         const newBreakLenght = breakLength - 60;
-        if(newBreakLenght < 0){
-            setBreakLength(0) 
-        }else{ 
-            setBreakLength(newBreakLenght)
-            dispatch(timeBreakLength(newBreakLenght) )
+        if(intervalId === null){
+            if(newBreakLenght < 0){
+                setBreakLength(0) 
+            }else{ 
+                setBreakLength(newBreakLenght)
+                dispatch(timeBreakLength(newBreakLenght) )
+            }
+        }else{
+            alert('Resetea el reloj para poder cambiar la longitud')
         }
     }
     const incrementBreakLengthByMinute = () => {
         const newBreakLenght = breakLength + 60;
-        setBreakLength(newBreakLenght)
-        dispatch(timeBreakLength(newBreakLenght) )
+        if(intervalId === null){
+            setBreakLength(newBreakLenght)
+            dispatch(timeBreakLength(newBreakLenght) )
+        }else{
+            alert('Resetea el reloj para poder cambiar la longitud')
+        }
     } 
+
     const breakLengthMinutes = moment.duration(breakLength, 'S').minutes()
 
     useEffect(() => {

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CardConfig, ContentIButton } from '../container/app-pomodoro-styled/AppPomodoroStyled'
 import {  timeSession } from '../redux/pomodoroDucks';
 
-const SessionLenth = () => {
+const SessionLenth = ({ intervalId }) => {
     const {time} = useSelector(state => state.pomodoro)
 
     const [sessionLength, setSessionLength] = useState(time);
@@ -12,17 +12,26 @@ const SessionLenth = () => {
 
     const decrementSessionLengthByMinute = () => {
         const newSessionLenght = sessionLength - 60;
-        if(newSessionLenght < 0 ){
-        setSessionLength(0)
+        if(intervalId === null){
+            if(newSessionLenght < 0 ){
+                setSessionLength(0)
+                }else{
+                    setSessionLength(newSessionLenght)
+                    dispatch(timeSession(newSessionLenght))
+                }
         }else{
-            setSessionLength(newSessionLenght)
-            dispatch(timeSession(newSessionLenght))
+            alert('Resetea el reloj para poder cambiar la longitud')
         }
+
     }
     const incrementSessionLengthByMinute = () => {
         const newSessionLenght = sessionLength + 60;
-        setSessionLength(newSessionLenght)
-        dispatch(timeSession(newSessionLenght))
+        if(intervalId === null){
+            setSessionLength(newSessionLenght)
+            dispatch(timeSession(newSessionLenght))
+        }else{
+            alert('Resetea el reloj para poder cambiar la longitud')
+        }
 
     } 
     const sessionLengthMinutes = moment.duration(sessionLength, 'S').minutes()

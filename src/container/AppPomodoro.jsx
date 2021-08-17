@@ -22,32 +22,32 @@ const AppPomodoro = () => {
     // console.log(time,breakLengthTime, timeLeft)
     
     const isStarted = intervalId !== null;
-
     const handlePlayTimeLeft = () => {
         if (isStarted) {
             clearInterval(intervalId);
             setIntervalId(null);
         }else{
-            const newIntervalId = setInterval(() => {
+            let modo ='Session'
+            const newIntervalId = setInterval(async () => {
                 setTimeLeft(prevTimelef =>{ 
                     const newTimeLeft = prevTimelef - 1;
-                    console.log('timeleft',newTimeLeft)
-                    console.log('prevTimeleft',prevTimelef)
                     
-                    if (newTimeLeft >= 0) {
+                    if (newTimeLeft > 0) {
                         return newTimeLeft
                     }
                     audio.current.play();
-                    if (currentSessionType === 'Break'){
+                    if (modo === 'Break'){
+                        modo ='Session'
                         setCurrentSessionType('Session')
-                        setTimeLeft(time)
+                        return time
                     }  
-                    if(currentSessionType === 'Session'){
+                    if(modo === 'Session'){
+                        modo='Break'
                         setCurrentSessionType('Break')
-                        setTimeLeft(breakLengthTime)
+                        return breakLengthTime
                     }
                 })
-            }, 10);
+            }, 1000);
             setIntervalId(newIntervalId)
         }
     }
@@ -72,14 +72,13 @@ const AppPomodoro = () => {
                 <h1>{formatTimeLeft}</h1>
                 <p>{currentSessionType === 'Session' ? 'Session': 'Break'}</p>
                 {
-                    isStarted ?<i className="fas fa-pause" onClick={handlePlayTimeLeft} ></i>
-                    : <i className="fas fa-play" onClick={handlePlayTimeLeft}></i>
+                    <i className={intervalId === null ? 'fas fa-play': 'fas fa-pause ' } onClick={handlePlayTimeLeft} />
                 }
                 <i className="fas fa-redo-alt" onClick={handleReset}></i>
             </ContentTime>
             <ContainerConfig>
-                <BreakInterval />
-                <SessionLenth />
+                <BreakInterval intervalId={intervalId}/>
+                <SessionLenth intervalId={intervalId}/>
             </ContainerConfig>
             <audio id='beep' ref={audio}>
                 <source src="https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3" type="audio/mp3"/>
