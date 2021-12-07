@@ -83,7 +83,7 @@ const AppPomodoro = () => {
             <audio id='beep' ref={audio}>
                 <source src="https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3" type="audio/mp3"/>
             </audio>
-            <a style={{color: 'cyan', margin: '100px'}} href="https://github.com/jacksonguerrer0">Jackson @jacksonguerrer0</a>
+            <a style={{color: 'cyan', display: 'block', textAlign: 'center'}} href="https://github.com/jacksonguerrer0">Jackson @jacksonguerrer0</a>
         </ContainerApp>
     )
 }

@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const ContainerApp = styled.div`
     padding: 2rem;
-    width: 400px;
+    max-width: 400px;
     margin: 100px auto;
     div{
         text-align: center;
